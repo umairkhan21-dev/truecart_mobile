@@ -36,6 +36,29 @@ class TrueCartApp extends StatelessWidget {
           primary: AppColor.primary,
           secondary: AppColor.secondary,
           surface: AppColor.surface,
+          error: AppColor.danger,
+        ),
+        appBarTheme: const AppBarTheme(
+          foregroundColor: AppColor.textPrimary,
+          titleTextStyle: TextStyle(
+            color: AppColor.textPrimary,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        filledButtonTheme: FilledButtonThemeData(
+          style: FilledButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            textStyle: const TextStyle(fontWeight: FontWeight.w800),
+          ),
+        ),
+        iconButtonTheme: IconButtonThemeData(
+          style: IconButton.styleFrom(
+            foregroundColor: AppColor.textPrimary,
+            backgroundColor: AppColor.surfaceMuted,
+          ),
         ),
         snackBarTheme: SnackBarThemeData(
           backgroundColor: AppColor.surfaceMuted,

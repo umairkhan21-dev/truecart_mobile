@@ -18,10 +18,10 @@ class OverlayScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: const Color(0xFF081120),
               borderRadius: BorderRadius.circular(28),
-              border: Border.all(color: Colors.white.withOpacity(0.08)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.45),
+                  color: Colors.black.withValues(alpha: 0.45),
                   blurRadius: 20,
                   spreadRadius: 4,
                 ),
@@ -137,7 +137,7 @@ class OverlayScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF101A2E),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.06)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

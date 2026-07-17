@@ -39,7 +39,7 @@ class FloatingBubbleScreen extends StatelessWidget {
 
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.35),
+                  color: Colors.black.withValues(alpha: 0.35),
                   blurRadius: 12,
                   spreadRadius: 2,
                 ),

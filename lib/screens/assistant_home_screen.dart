@@ -72,9 +72,11 @@ class AssistantHomeScreen extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(22),
                   decoration: BoxDecoration(
-                    color: AppColor.surface.withOpacity(0.92),
+                    color: AppColor.surface.withValues(alpha: 0.92),
                     borderRadius: BorderRadius.circular(28),
-                    border: Border.all(color: Colors.white.withOpacity(0.08)),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.08),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

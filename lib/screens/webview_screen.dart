@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:truecart_mobile/screens/analysis_result_screen.dart';
+import 'package:truecart_mobile/widgets/analysis_widgets.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:truecart_mobile/services/api_service.dart';
 import 'dart:convert';
@@ -19,6 +20,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
 
   bool isLoading = true;
   bool hasExtracted = false;
+  String? errorMessage;
 
   bool _looksLikeAmazonProductPage(Map<String, dynamic> extractedData) {
     final title = (extractedData["title"] ?? "").toString().trim();
@@ -52,25 +54,18 @@ class _WebViewScreenState extends State<WebViewScreen> {
 
     setState(() {
       isLoading = false;
+      errorMessage = message;
     });
-
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-
-    Navigator.pop(context);
   }
 
-  dynamic _extractAnalysisPayload(Map<String, dynamic> response) {
-    if (response.containsKey("result")) {
-      return response["result"];
-    }
+  void _retry() {
+    setState(() {
+      isLoading = true;
+      hasExtracted = false;
+      errorMessage = null;
+    });
 
-    if (response.containsKey("response")) {
-      return response["response"];
-    }
-
-    return response;
+    controller.loadRequest(Uri.parse(widget.productUrl));
   }
 
   dynamic _decodeJavaScriptResult(dynamic rawResult) {
@@ -345,32 +340,10 @@ return !!(
       body: Stack(
         children: [
           Opacity(opacity: 0, child: WebViewWidget(controller: controller)),
-          Container(
-            color: Colors.black,
-            child: const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(),
-                  SizedBox(height: 30),
-                  Text(
-                    "TrueCart AI",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-
-                  SizedBox(height: 20),
-                  Text(
-                    "Analyzing Product...",
-                    style: TextStyle(color: Colors.white70, fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          if (errorMessage != null)
+            PremiumErrorView(message: errorMessage!, onRetry: _retry)
+          else
+            const PremiumLoadingView(),
         ],
       ),
     );

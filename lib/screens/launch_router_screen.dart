@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../services/api_service.dart';
 import 'analysis_result_screen.dart';
 import 'url_input_screen.dart';
+import 'package:truecart_mobile/widgets/analysis_widgets.dart';
 
 class LaunchRouterScreen extends StatefulWidget {
   const LaunchRouterScreen({super.key});
@@ -28,9 +29,8 @@ class _LaunchRouterScreenState extends State<LaunchRouterScreen> {
 
   Future<void> _routeLaunch() async {
     try {
-      final launchPayload = await _launchChannel.invokeMapMethod<String, dynamic>(
-        'consumeLaunchPayload',
-      );
+      final launchPayload = await _launchChannel
+          .invokeMapMethod<String, dynamic>('consumeLaunchPayload');
 
       final productUrl = launchPayload?['product_url'] as String?;
       final launchSource = launchPayload?['launch_source'] as String?;
@@ -72,9 +72,7 @@ class _LaunchRouterScreenState extends State<LaunchRouterScreen> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: PremiumLoadingView());
     }
 
     return UrlInputScreen(initialErrorMessage: _errorMessage);
